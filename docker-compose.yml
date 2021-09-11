@@ -1,0 +1,50 @@
+version: '2'
+services:
+
+  trojan:
+    container_name: trojan
+    image: p4gefau1t/trojan-go
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+        - ./config.json:/etc/trojan-go/config.json
+        - ./acme/your_site:/opt/cert
+
+  acme1:
+    container_name: acme1
+    image: neilpang/acme.sh
+    command: --register-account -m your_email
+    environment:
+       CF_Email: your_email
+       CF_Key: your_key
+    volumes:
+      - ./acme:/acme.sh
+
+  acme2:
+    container_name: acme2
+    image: neilpang/acme.sh
+    command: --issue -d your_site --dns dns_cf
+    environment:
+       CF_Email: your_email
+       CF_Key: your_key
+    volumes:
+      - ./acme:/acme.sh
+
+  acme:
+    container_name: acme
+    image: neilpang/acme.sh
+    command: --cron
+    environment:
+       CF_Email: your_email
+       CF_Key: your_key
+    volumes:
+      - ./acme:/acme.sh
+
+  my_nginx:
+    container_name: my_nginx
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    privileged: true

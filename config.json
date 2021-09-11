@@ -1,0 +1,14 @@
+{
+    "run_type": "server",
+    "local_addr": "0.0.0.0",
+    "local_port": 443,
+    "remote_addr": "my_nginx",
+    "remote_port": 80,
+    "password": [
+        "your_password"
+    ],
+    "ssl": {
+        "cert": "/opt/cert/fullchain.cer",
+        "key": "/opt/cert/your_site.key"
+    }
+}
