@@ -1,5 +1,7 @@
 # docker trojan-go
 
+[trojan-go](https://github.com/p4gefau1t/trojan-go)
+
 用 docker-compose 部署 trojan-go server
 
 ```bash
